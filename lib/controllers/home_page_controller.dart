@@ -1,7 +1,17 @@
 import 'package:get/get.dart';
 
 class HomePageController extends GetxController {
-  final count = 0.obs;
+  int counter = 0;
+  static HomePageController get to => Get.find(); // add this line
 
-  increment() => count.value++;
+  increment() {
+    update(['text'], counter > 0);
+    counter += 1;
+  }
+
+  @override
+  void onInit() {
+    // Fetch The API
+    super.onInit();
+  }
 }

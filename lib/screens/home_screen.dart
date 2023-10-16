@@ -5,16 +5,12 @@ import 'package:test/screens/profile_screen.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
-  final HomePageController controller = Get.put(HomePageController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          controller.increment();
-          Get.snackbar(
-              'Added Successfully', 'Counter Incremented Successfully');
-          Get.to(ProfileScreen());
+          HomePageController.to.increment();
         },
         tooltip: 'Increment',
         backgroundColor: Colors.cyan,
@@ -24,14 +20,18 @@ class Home extends StatelessWidget {
         child: Center(
           child: SizedBox(
             height: 250,
-            child: Column(children: [
-              Obx(
-                () => Text(
-                  controller.count.toString(),
-                  style: Theme.of(context).textTheme.headline4,
+            child: Column(
+              children: [
+                GetBuilder<HomePageController>(
+                  init: HomePageController(),
+                  id: 'text',
+                  builder: (controller) => Text(
+                    controller.counter.toString(),
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
                 ),
-              ),
-            ]),
+              ],
+            ),
           ),
         ),
       ),
